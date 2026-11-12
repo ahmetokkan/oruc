@@ -131,9 +131,50 @@ details ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;g
 .pbtn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.2px var(--line)}
 .pbtn:disabled{opacity:.45;cursor:default}
 .nrow select{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 8px}
+.nrow select,.nrow input{font-size:16px}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tabs button{flex:1;border:0;background:none;border-radius:9px;padding:9px 10px;font-weight:600;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--hero);color:var(--hero-ink)}
+.view{display:flex;flex-direction:column;gap:20px}
+.kz-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.kz-card .lbl{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kz-big{display:flex;align-items:baseline;gap:8px}
+.kz-big b{font-family:var(--display);font-size:46px;line-height:1;font-weight:700}
+.kz-big span{color:var(--muted);font-weight:500}
+.kz-bar{height:10px;border-radius:99px;background:var(--t-out);overflow:hidden}
+.kz-bar i{display:block;height:100%;width:0;background:var(--farz);border-radius:99px;transition:width .3s}
+.kz-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.kz-row label{display:inline-flex;align-items:center;gap:8px;font-weight:500}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.step button{border:0;background:var(--bg);width:44px;height:40px;font-size:20px;font-weight:600}
+.step input{width:72px;height:40px;border:0;border-inline:1px solid var(--line);text-align:center;font:600 16px var(--body);color:inherit;background:var(--surface)}
+.kz-in{font:16px var(--body);color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.kz-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.kz-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)}
+.kz-item:first-child{border-top:0}
+.kz-item .t{flex:1;min-width:0;font-weight:500}
+.kz-item .t small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.kz-item button{border:0;background:none;color:var(--muted);font-size:20px;width:40px;height:40px;border-radius:8px}
+.kz-msg{font-size:13px;margin:8px 0 0;min-height:1.2em;color:var(--muted)}
+.kz-msg.err{color:var(--bayram)}
+.kz-msg.ok{color:var(--farz)}
+.kz-msg button{border:0;background:none;color:var(--hafta);font-weight:600;padding:0 0 0 8px}
+.kz-code{width:100%;min-height:76px;font:14px ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--bg);color:inherit;word-break:break-all;margin:8px 0}
+.cell .dots b{font-size:10px;font-weight:800;color:var(--farz);line-height:.8}
+.cell .dots u{text-decoration:none;font-size:10px;font-weight:800;color:var(--bayram);line-height:.8}
+.refh{color:var(--ink);font-weight:600;margin:14px 0 2px}
+.refs li b{color:var(--ink);font-weight:600}
+.refs a{color:var(--hafta)}
+.detail .pbtn{align-self:flex-start}
 </style>
 
 <div class="app">
+  <nav class="tabs" role="tablist" aria-label="Bölümler">
+    <button type="button" role="tab" data-v="takvim" aria-selected="true">Takvim</button>
+    <button type="button" role="tab" data-v="kaza" aria-selected="false">Kaza Takibi</button>
+  </nav>
+
+  <div id="vTakvim" class="view">
   <section class="hero" aria-label="Bugün">
     <div class="hero-top">
       <div>
@@ -204,15 +245,89 @@ details ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;g
   </section>
 
   <details>
-    <summary>Takvim hakkında</summary>
+    <summary>Takvim hakkında ve kaynakça</summary>
     <ul>
       <li>Hicri tarihler T.C. Diyanet İşleri Başkanlığı takvimine göredir. Kapsam: Kasım 2026 – Aralık 2027 (Hicri 1448–1449).</li>
       <li>Hicri gün akşam ezanıyla başlar. Hücredeki hicri tarih o günün gündüzüne, yani orucun tutulduğu vakte aittir.</li>
       <li>Kandil gecesi, işaretli günün akşamı başlar.</li>
       <li>Ramazan Bayramı'nın 1. günü ve Kurban Bayramı'nın dört günü oruç tutulmaz. Bu yüzden Zilhicce'de eyyâm-ı bîd yalnızca 14 ve 15. günlerde işaretlidir.</li>
       <li>Şevval orucunun altı günü ay içinden seçilir; uygun günler arka plan rengiyle gösterilir.</li>
+      <li>Cuma günü tek başına nafile oruç tutulmaz; Perşembe veya Cumartesi ile birlikte tutulur. Cumaya denk gelen sünnet oruçlarda takvimde kırmızı <b>!</b> işareti görünür. Müslim'deki bir rivayette, kişinin âdet edindiği bir orucun cumaya denk gelmesi bu yasağın dışında tutulur (no. 1144).</li>
+    </ul>
+    <p class="refh">Kaynakça</p>
+    <p class="hint" style="margin:0">Hadis numaraları sunnah.com numaralandırmasına göredir. Bağlantılar hadisin Arapça metnini ve İngilizce çevirisini açar.</p>
+    <ul class="refs">
+      <li><b>Ramazan orucu ve kaza:</b> Kur'ân-ı Kerîm, Bakara 2/183-185.</li>
+      <li><b>Pazartesi ve perşembe:</b> <a href="https://sunnah.com/muslim:1162b" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1162</a>: Pazartesi, Hz. Peygamber'in doğduğu ve kendisine vahyin geldiği gündür. <a href="https://sunnah.com/tirmidhi:747" target="_blank" rel="noopener">Tirmizî, Savm, no. 747</a>: Ameller pazartesi ve perşembe arz edilir; amelimin oruçluyken arz edilmesini isterim (hasen).</li>
+      <li><b>Eyyâm-ı bîd:</b> <a href="https://sunnah.com/tirmidhi:761" target="_blank" rel="noopener">Tirmizî, Savm, no. 761</a>; <a href="https://sunnah.com/nasai:2424" target="_blank" rel="noopener">Nesâî, Sıyâm, no. 2424</a>: Ayda üç gün oruç tutacaksan 13, 14 ve 15. günleri tut (hasen).</li>
+      <li><b>Zilhicce'nin ilk dokuz günü:</b> <a href="https://sunnah.com/abudawud:2437" target="_blank" rel="noopener">Ebû Dâvûd, Savm, no. 2437</a>: Hz. Peygamber Zilhicce'nin ilk dokuz gününü oruçlu geçirirdi (Elbânî: sahih).</li>
+      <li><b>Arefe ve Aşure:</b> <a href="https://sunnah.com/muslim:1162a" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1162</a>: Arefe orucu geçmiş ve gelecek yılın, Aşure orucu geçmiş yılın günahlarına kefaret olur.</li>
+      <li><b>Muharrem orucu:</b> <a href="https://sunnah.com/muslim:1134a" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1134</a>: Gelecek yıla kalırsam dokuzuncu günü de oruç tutacağım. <a href="https://sunnah.com/muslim:1163b" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1163</a>: Ramazan'dan sonra en faziletli oruç, Allah'ın ayı Muharrem'de tutulan oruçtur. 10-11 Muharrem seçeneği: Ahmed b. Hanbel, Müsned, no. 2154 (isnadı zayıf).</li>
+      <li><b>Şevval'den altı gün:</b> <a href="https://sunnah.com/muslim:1164" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1164</a>: Ramazan'ı tutup ardından Şevval'den altı gün tutan, bütün yılı oruçlu geçirmiş gibidir.</li>
+      <li><b>Şaban:</b> <a href="https://sunnah.com/bukhari:1969" target="_blank" rel="noopener">Buhârî, Savm, no. 1969, 1970</a>: Hz. Peygamber Ramazan dışında en çok Şaban ayında oruç tutardı.</li>
+      <li><b>Recep:</b> Recep ayına özel oruç rivayetleri zayıf veya uydurma kabul edilir (<a href="https://islamansiklopedisi.org.tr/uc-aylar" target="_blank" rel="noopener">TDV İslâm Ansiklopedisi, "Üç Aylar"</a>). Haram aylarda oruca dair rivayet: <a href="https://sunnah.com/abudawud:2428" target="_blank" rel="noopener">Ebû Dâvûd, Savm, no. 2428</a> (zayıf).</li>
+      <li><b>Cuma günü:</b> <a href="https://sunnah.com/bukhari:1985" target="_blank" rel="noopener">Buhârî, Savm, no. 1985</a>; <a href="https://sunnah.com/muslim:1144a" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1144</a>: Bir gün önce veya sonra da oruç tutmadıkça hiçbiriniz cuma günü oruç tutmasın.</li>
+      <li><b>Bayram ve teşrik günleri:</b> <a href="https://sunnah.com/bukhari:1991" target="_blank" rel="noopener">Buhârî, Savm, no. 1991-1992</a>: Hz. Peygamber iki bayram günü oruç tutmayı yasakladı. <a href="https://sunnah.com/muslim:1141a" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1141</a>: Teşrik günleri yeme içme günleridir.</li>
+      <li><b>Tarihler:</b> <a href="https://vakithesaplama.diyanet.gov.tr/icerik.php?icerik=154" target="_blank" rel="noopener">Diyanet İşleri Başkanlığı, Dini Günler Listesi</a> (2026 ve 2027).</li>
+      <li><b>Genel bilgi:</b> <a href="https://islamansiklopedisi.org.tr/oruc" target="_blank" rel="noopener">TDV İslâm Ansiklopedisi, "Oruç" maddesi</a>.</li>
     </ul>
   </details>
+  </div>
+
+  <div id="vKaza" class="view" hidden>
+    <section class="kz-card" aria-label="Kaza durumu">
+      <div class="lbl">Kalan kaza orucu</div>
+      <div class="kz-big"><b id="kzLeft" class="num">0</b><span>gün</span></div>
+      <div class="kz-bar"><i id="kzBar"></i></div>
+      <p class="hint" id="kzSum" style="margin:0"></p>
+    </section>
+
+    <section>
+      <h2>Toplam kaza borcu</h2>
+      <p class="hint">Tutman gereken toplam kaza orucu sayısı. İstediğin zaman değiştirebilirsin.</p>
+      <div class="step">
+        <button id="kzMinus" type="button" aria-label="Bir azalt">−</button>
+        <input id="kzTotal" type="number" inputmode="numeric" min="0" max="9999" aria-label="Toplam kaza borcu">
+        <button id="kzPlus" type="button" aria-label="Bir artır">+</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Kaza orucu ekle</h2>
+      <div class="kz-row" style="margin-top:10px"><button id="kzToday" class="pbtn" type="button">Bugün kaza tuttum</button></div>
+      <div class="kz-row" style="margin-top:12px">
+        <label>Başka bir gün <input id="kzDate" class="kz-in" type="date"></label>
+        <button id="kzAdd" class="pbtn ghost" type="button">Ekle</button>
+      </div>
+      <p class="kz-msg" id="kzMsg" aria-live="polite"></p>
+    </section>
+
+    <section>
+      <h2>Tutulan kaza oruçları</h2>
+      <div class="kz-list" id="kzList" style="margin-top:10px"></div>
+    </section>
+
+    <details>
+      <summary>Yedekle veya geri yükle</summary>
+      <p class="hint">Kayıtlar yalnızca bu telefonda saklanır; uygulamayı ana ekrandan silersen kayıtlar da silinir. Yedek kodunu kopyalayıp bir notta saklayabilir, gerektiğinde buraya yapıştırıp geri yükleyebilirsin.</p>
+      <textarea id="kzCode" class="kz-code" aria-label="Yedek kodu" placeholder="Yedek kodu burada görünür; geri yüklemek için kodu buraya yapıştır."></textarea>
+      <div class="kz-row">
+        <button id="kzCopy" class="pbtn ghost" type="button">Yedek kodunu kopyala</button>
+        <button id="kzLoad" class="pbtn ghost" type="button">Yedekten yükle</button>
+      </div>
+      <p class="kz-msg" id="kzBMsg" aria-live="polite"></p>
+    </details>
+
+    <details>
+      <summary>Kaza orucu hakkında</summary>
+      <ul>
+        <li>Ramazan'da hastalık, yolculuk gibi bir özürle tutulamayan her gün için sonradan bir gün kaza orucu tutulur (Bakara 2/184-185).</li>
+        <li>Kaza oruçlarının art arda tutulması gerekmez; Ramazan ve bayram günleri dışında her gün tutulabilir.</li>
+        <li>Kaza orucuna niyet imsaktan önce yapılmalıdır.</li>
+        <li>Takvimde bir güne dokunup "Bu gün kaza orucu tuttum" diyerek de kayıt ekleyebilirsin. Kayıtlı günler takvimde yeşil <b>✓</b> ile görünür.</li>
+      </ul>
+    </details>
+  </div>
 </div>
 
 <script>
@@ -236,14 +351,16 @@ const KANDIL={};
 const MIN=dn(2026,11,1), MAX=dn(2027,12,31);
 
 const DESC={
- farz:"Ramazan orucu farzdır.",
- bid:"Her hicri ayın 13, 14 ve 15. günlerinde tutulan sünnet oruç.",
- hafta:"Pazartesi ve perşembe günleri tutulan sünnet oruç.",
- zil:"Zilhicce'nin ilk dokuz günü oruç tutmak faziletlidir; dokuzuncu gün Arefe'dir.",
- muh:"Aşure orucu 9-10 veya 10-11 Muharrem olarak tutulur.",
- sevval:"Şevval ayı içinde altı gün oruç tutulur; günleri siz seçersiniz.",
+ farz:"Ramazan orucu farzdır (Bakara 2/183-185).",
+ bid:"Her hicri ayın 13, 14 ve 15. günlerinde tutulan sünnet oruç (Tirmizî, no. 761; Nesâî, no. 2424).",
+ hafta:"Pazartesi ve perşembe günleri tutulan sünnet oruç (Müslim, no. 1162; Tirmizî, no. 747).",
+ zil:"Zilhicce'nin ilk dokuz günü oruç tutmak faziletlidir; dokuzuncu gün Arefe'dir (Ebû Dâvûd, no. 2437; Müslim, no. 1162).",
+ muh:"Aşure orucu 9-10 veya 10-11 Muharrem olarak tutulur (Müslim, no. 1134, 1162).",
+ sevval:"Şevval ayı içinde altı gün oruç tutulur; günleri siz seçersiniz (Müslim, no. 1164).",
  kandil:"Kandil gecesi bu günün akşamı başlar.",
- bayram:"Dini bayram.", yasak:"Bu gün oruç tutulmaz.", bilgi:""
+ cuma:"Cuma günü tek başına oruç tutulmaz. Bu orucu Perşembe veya Cumartesi günü tutacağın oruçla birlikte tut (Buhârî, no. 1985; Müslim, no. 1144).",
+ kaza:"Bu gün kaza orucu olarak kaydedildi.",
+ bayram:"Dini bayram.", yasak:"Bu gün oruç tutulmaz (Buhârî, no. 1991; Müslim, no. 1141).", bilgi:""
 };
 const FILTERS=[["bid","Eyyâm-ı bîd"],["hafta","Pazartesi / Perşembe"],["zil","Zilhicce 1–9"],["muh","Muharrem 9–11"],["sevval","Şevval"],["kandil","Kandiller"]];
 const FAST=["farz","bid","hafta","zil","muh"];
@@ -279,17 +396,18 @@ function info(n){
     const w=wdOf(n);
     if(w===0&&on.hafta) items.push({k:"hafta",t:"Pazartesi orucu"});
     if(w===3&&on.hafta) items.push({k:"hafta",t:"Perşembe orucu"});
+    if(w===4&&items.some(x=>x.k==="bid"||x.k==="zil"||x.k==="muh")) items.push({k:"cuma",t:"Cuma: Perşembe veya Cumartesi ile tut"});
     if(h.m===10&&h.d>=2&&on.sevval){items.push({k:"sevval",t:"Şevval orucu günü"}); bg=bg||"sevval";}
   }
   if(!bg) bg=h.m===7?"recep":h.m===8?"saban":null;
   return {h,items,bg,forbidden};
 }
 const isFast=i=>i.items.some(x=>FAST.includes(x.k));
-const colorOf=k=>"var(--"+(k==="yasak"?"bayram":k)+")";
+const colorOf=k=>"var(--"+(k==="yasak"||k==="cuma"?"bayram":k==="kaza"?"farz":k)+")";
 const el=(tag,cls,txt)=>{const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e;};
 const fmt=n=>{const d=toDate(n);return d.getUTCDate()+" "+GM[d.getUTCMonth()+1]+" "+d.getUTCFullYear();};
 const fmtH=h=>h?h.d+" "+HM[h.m]+" "+h.y:"";
-function chip(x){const c=el("span","chip"+((x.k==="yasak"||x.k==="sevval")?" o":""),x.t); c.style.setProperty("--c",colorOf(x.k)); return c;}
+function chip(x){const c=el("span","chip"+((x.k==="yasak"||x.k==="sevval"||x.k==="cuma")?" o":""),x.t); c.style.setProperty("--c",colorOf(x.k)); return c;}
 function pill(x){const p=el("span","pill"); const i=el("i"); i.style.background=colorOf(x.k); p.append(i,document.createTextNode(x.t.replace("☾ ",""))); return p;}
 
 const now=new Date(), realToday=dn(now.getFullYear(),now.getMonth()+1,now.getDate());
@@ -312,9 +430,10 @@ function renderToday(){
   document.getElementById("tHijri").textContent=fmtH(i.h);
   if(i.h) moon(i.h.d);
   const st=document.getElementById("tStatus");
-  st.textContent=i.forbidden?"Bugün oruç tutulmaz":isFast(i)?"Bugün oruç günü":"Bugün işaretli bir oruç yok";
+  st.textContent=i.forbidden?"Bugün oruç tutulmaz":(inRange&&kzHas(realToday))?"Bugün kaza orucu tuttun":isFast(i)?"Bugün oruç günü":"Bugün işaretli bir oruç yok";
   const ch=document.getElementById("tChips"); ch.textContent="";
   i.items.filter(x=>x.k!=="yasak").forEach(x=>ch.append(pill(x)));
+  if(inRange&&kzHas(realToday)) ch.append(pill({k:"kaza",t:"Kaza orucu tutuldu"}));
   const tm=document.getElementById("tTomorrow"); tm.textContent="";
   if(today+1<=MAX){
     const j=info(today+1); tm.append(el("b",null,"Yarın:"));
@@ -364,10 +483,12 @@ function renderCal(){
     i.items.forEach(x=>{
       if(x.k==="kandil") dots.append(el("em",null,"☾"));
       else if(x.k==="yasak") dots.append(el("s",null,"✕"));
+      else if(x.k==="cuma") dots.append(el("u",null,"!"));
       else if(["bid","hafta","zil","muh"].includes(x.k)){const o=el("i"); o.style.background=colorOf(x.k); dots.append(o);}
     });
+    if(kzHas(n)) dots.append(el("b",null,"✓"));
     b.append(dots);
-    b.setAttribute("aria-label",fmt(n)+", "+fmtH(i.h)+(i.items.length?": "+i.items.map(x=>x.t).join(", "):""));
+    b.setAttribute("aria-label",fmt(n)+", "+fmtH(i.h)+(i.items.length?": "+i.items.map(x=>x.t).join(", "):"")+(kzHas(n)?", kaza orucu tutuldu":""));
     b.addEventListener("click",()=>{sel=n;renderCal();});
     g.append(b);
   }
@@ -380,7 +501,15 @@ function renderDetail(){
   box.append(head);
   i.items.forEach(x=>{const it=el("div","item"); it.append(chip(x)); if(DESC[x.k]) it.append(el("p",null,DESC[x.k])); box.append(it);});
   if(i.h&&(i.h.m===7||i.h.m===8)) box.append(el("p","none",HM[i.h.m]+" ayı: oruç tutmanın faziletli olduğu aylardan."));
-  if(!i.items.length&&!(i.h&&(i.h.m===7||i.h.m===8))) box.append(el("p","none","Bu gün için işaretli bir oruç ya da dini gün yok."));
+  if(!i.items.length&&!kzHas(sel)&&!(i.h&&(i.h.m===7||i.h.m===8))) box.append(el("p","none","Bu gün için işaretli bir oruç ya da dini gün yok."));
+  if(kzHas(sel)){
+    const it=el("div","item"); it.append(chip({k:"kaza",t:"✓ Kaza orucu tutuldu"}));
+    const bt=el("button","pbtn ghost","Kaza kaydını sil"); bt.type="button";
+    bt.addEventListener("click",()=>{kzDel(sel);renderAll();}); it.append(bt); box.append(it);
+  }else if(!kzBlock(sel)){
+    const bt=el("button","pbtn ghost","Bu gün kaza orucu tuttum"); bt.type="button";
+    bt.addEventListener("click",()=>{kzAdd(sel);renderAll();}); box.append(bt);
+  }
 }
 
 function renderFilters(){
@@ -406,6 +535,7 @@ function buildReminders(){
       else if(x.k==="farz"&&i.h.d===1) t.push("Ramazan başlıyor · ilk oruç");
       else if(x.k==="bayram"&&/ 1\. gün/.test(x.t)) t.push(x.t);
     });
+    if(t.length&&i.items.some(x=>x.k==="cuma")) t.push("Cuma: tek başına tutulmaz, Perşembe veya Cumartesi ile tut");
     if(t.length){const ms=at(n-1); if(ms>nowMs) out.push({t:ms,title:"Yarın: "+t[0],text:WD[wdOf(n)]+" "+fmt(n)+" · "+fmtH(i.h)+(t.length>1?" · "+t.slice(1).join(" · "):"")});}
     if(KANDIL[n]&&on.kandil){const ms=at(n); if(ms>nowMs) out.push({t:ms,title:"Bu gece: "+KANDIL[n],text:WD[wdOf(n)]+" "+fmt(n)+" · kandil gecesi bu akşam başlıyor"});}
   }
@@ -428,6 +558,97 @@ if(window.Android){
     if(nOn&&window.Android.askPermission) window.Android.askPermission(); syncReminders();};
   c.addEventListener("change",ch); ti.addEventListener("change",ch);
 }
+// ---------- Kaza orucu takibi (kayıtlar yalnızca bu cihazda) ----------
+const byId=id=>document.getElementById(id);
+function kzClean(s){
+  const o={total:0,days:[]};
+  if(s&&typeof s==="object"){
+    o.total=Math.max(0,Math.min(9999,parseInt(s.total,10)||0));
+    if(Array.isArray(s.days)) o.days=[...new Set(s.days.filter(x=>Number.isInteger(x)&&x>0))].sort((a,b)=>a-b);
+  }
+  return o;
+}
+let kz={total:0,days:[]};
+try{kz=kzClean(JSON.parse(localStorage.getItem("oruc-kaza")||"null"));}catch(e){}
+const kzSave=()=>{try{localStorage.setItem("oruc-kaza",JSON.stringify(kz));}catch(e){}};
+const kzHas=n=>kz.days.includes(n);
+function kzBlock(n){
+  if(n>realToday) return "İleri bir tarihe kaza kaydı eklenemez.";
+  const h=hijri(n);
+  if(h&&((h.m===10&&h.d===1)||(h.m===12&&h.d>=10&&h.d<=13))) return "Bayram günü oruç tutulmaz; bu güne kaza eklenemez.";
+  if(h&&h.m===9) return "Ramazan günleri farz oruçtur; kaza Ramazan dışında tutulur.";
+  return null;
+}
+function kzAdd(n){const b=kzBlock(n); if(b) return b; if(kzHas(n)) return "Bu gün zaten kayıtlı."; kz.days.push(n); kz.days.sort((a,b)=>a-b); kzSave(); return null;}
+function kzDel(n){kz.days=kz.days.filter(x=>x!==n); kzSave();}
+const isoOf=n=>{const d=toDate(n);return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0");};
+const nOfIso=v=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||""); return m?dn(+m[1],+m[2],+m[3]):null;};
+function kzSay(id,text,cls,undoDay){
+  const m=byId(id); m.className="kz-msg"+(cls?" "+cls:""); m.textContent=text||"";
+  if(undoDay!=null){
+    const b=el("button",null,"Geri al"); b.type="button";
+    b.addEventListener("click",()=>{if(!kzHas(undoDay)){kz.days.push(undoDay); kz=kzClean(kz); kzSave();} kzSay("kzMsg","Kayıt geri alındı.","ok"); renderAll();});
+    m.append(b);
+  }
+}
+function renderKaza(){
+  const done=kz.days.length, left=Math.max(0,kz.total-done);
+  byId("kzLeft").textContent=left;
+  byId("kzBar").style.width=(kz.total?Math.min(100,Math.round(done/kz.total*100)):0)+"%";
+  byId("kzSum").textContent=kz.total
+    ? done+" / "+kz.total+" gün tutuldu"+(done>kz.total?". Tutulan gün sayısı toplam borçtan fazla; toplamı güncelle.":left===0?". Kaza borcun tamamlandı.":".")
+    : done ? done+" gün kaza tuttun. Kalanı görmek için toplam kaza borcunu gir." : "Başlamak için toplam kaza borcunu gir.";
+  const inp=byId("kzTotal"); if(document.activeElement!==inp) inp.value=kz.total;
+  const tb=byId("kzToday"), blk=kzBlock(realToday);
+  if(kzHas(realToday)){tb.textContent="Bugün kaydedildi ✓"; tb.disabled=true;}
+  else{tb.textContent="Bugün kaza tuttum"; tb.disabled=!!blk;}
+  byId("kzDate").max=isoOf(realToday);
+  const list=byId("kzList"); list.textContent="";
+  if(!done){const p=el("p","none","Henüz kayıt yok. Kaza orucu tuttuğun günü yukarıdan ekle."); p.style.padding="12px"; list.append(p);}
+  [...kz.days].reverse().forEach((n,idx)=>{
+    const row=el("div","kz-item"), t=el("div","t"), h=hijri(n);
+    t.append(document.createTextNode(fmt(n)+" "+WD[wdOf(n)]), el("small",null,(done-idx)+". kaza orucu"+(h?" · "+fmtH(h):"")));
+    const del=el("button",null,"×"); del.type="button"; del.setAttribute("aria-label",fmt(n)+" kaydını sil");
+    del.addEventListener("click",()=>{kzDel(n); kzSay("kzMsg",fmt(n)+" kaydı silindi.","",n); renderAll();});
+    row.append(t,del); list.append(row);
+  });
+}
+function kzInit(){
+  const setTotal=v=>{kz.total=Math.max(0,Math.min(9999,v)); kzSave(); renderKaza();};
+  byId("kzMinus").addEventListener("click",()=>setTotal(kz.total-1));
+  byId("kzPlus").addEventListener("click",()=>setTotal(kz.total+1));
+  byId("kzTotal").addEventListener("change",e=>setTotal(parseInt(e.target.value,10)||0));
+  byId("kzToday").addEventListener("click",()=>{const err=kzAdd(realToday); kzSay("kzMsg",err||"Bugünkü kaza orucu kaydedildi.",err?"err":"ok"); renderAll();});
+  byId("kzDate").value=isoOf(realToday);
+  byId("kzAdd").addEventListener("click",()=>{
+    const n=nOfIso(byId("kzDate").value);
+    if(n==null){kzSay("kzMsg","Önce bir tarih seç.","err"); return;}
+    const err=kzAdd(n); kzSay("kzMsg",err||fmt(n)+" kaydedildi.",err?"err":"ok"); renderAll();
+  });
+  byId("kzCopy").addEventListener("click",()=>{
+    const ta=byId("kzCode"); ta.value="ORUC-KAZA:"+btoa(JSON.stringify(kz));
+    const fallback=()=>{ta.focus(); ta.select(); let ok=false; try{ok=document.execCommand("copy");}catch(e){} kzSay("kzBMsg",ok?"Yedek kodu kopyalandı. Bir notta sakla.":"Kod kutuda; seçip kopyala.",ok?"ok":"");};
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(()=>kzSay("kzBMsg","Yedek kodu kopyalandı. Bir notta sakla.","ok"),fallback); else fallback();
+  });
+  let pending=null;
+  byId("kzLoad").addEventListener("click",()=>{
+    const raw=(byId("kzCode").value||"").trim().replace(/^ORUC-KAZA:/,"");
+    let d; try{d=JSON.parse(atob(raw)); if(!d||typeof d!=="object") throw 0; d=kzClean(d);}catch(e){pending=null; kzSay("kzBMsg","Yedek kodu okunamadı. Kodu eksiksiz yapıştırdığından emin ol.","err"); return;}
+    if(pending!==raw){pending=raw; kzSay("kzBMsg","Bu yedekte "+d.total+" günlük borç ve "+d.days.length+" kayıt var. Mevcut kayıtların yerine geçecek; onaylamak için tekrar bas."); return;}
+    pending=null; kz=d; kzSave(); kzSay("kzBMsg","Yedek yüklendi.","ok"); renderAll();
+  });
+}
+function showView(){
+  const v=location.hash==="#kaza"?"kaza":"takvim";
+  byId("vTakvim").hidden=v!=="takvim"; byId("vKaza").hidden=v!=="kaza";
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.v===v)));
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
+  if(b.dataset.v==="kaza") location.hash="kaza"; else history.replaceState(null,"",location.pathname+location.search);
+  showView(); window.scrollTo(0,0);
+}));
+window.addEventListener("hashchange",showView);
+
 const API="https://oruc.nuryolcusu11.workers.dev";
 let pTime="20:00", pSub=null;
 try{const t=localStorage.getItem("oruc-push-saat")||""; if(/^\d\d:\d\d$/.test(t)) pTime=t;}catch(e){}
@@ -467,13 +688,15 @@ async function pInit(){
     catch(e){pRender("Deneme gönderilemedi ("+e.message+").");}
   });
 }
-function renderAll(){renderToday();renderUpcoming();renderCal();renderFilters();syncReminders();syncPush();}
+function renderAll(){renderToday();renderUpcoming();renderCal();renderFilters();renderKaza();syncReminders();syncPush();}
 
 function step(k){let {y,m}=view; m+=k; if(m<1){m=12;y--;} if(m>12){m=1;y++;} view={y,m}; const f=dn(y,m,1); if(sel<f||sel>=dn(m===12?y+1:y,m===12?1:m+1,1)) sel=(today>=f&&today<dn(m===12?y+1:y,m===12?1:m+1,1))?today:f; renderCal();}
 document.getElementById("prev").addEventListener("click",()=>step(-1));
 document.getElementById("next").addEventListener("click",()=>step(1));
 document.getElementById("goToday").addEventListener("click",()=>{sel=today;const d=toDate(today);view={y:d.getUTCFullYear(),m:d.getUTCMonth()+1};renderCal();});
+kzInit();
 renderAll();
+showView();
 pInit().catch(()=>{});
 })();
 </script>
