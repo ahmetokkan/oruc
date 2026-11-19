@@ -247,7 +247,7 @@ details ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;g
   <details>
     <summary>Takvim hakkında ve kaynakça</summary>
     <ul>
-      <li>Hicri tarihler T.C. Diyanet İşleri Başkanlığı takvimine göredir. Kapsam: Kasım 2026 – Aralık 2027 (Hicri 1448–1449).</li>
+      <li>Hicri tarihler T.C. Diyanet İşleri Başkanlığı takvimine göredir. Kapsam: Kasım 2026 – Aralık 2035 (Hicri 1448–1457). Diyanet 2036 ve sonrası için henüz liste yayımlamadı.</li>
       <li>Hicri gün akşam ezanıyla başlar. Hücredeki hicri tarih o günün gündüzüne, yani orucun tutulduğu vakte aittir.</li>
       <li>Kandil gecesi, işaretli günün akşamı başlar.</li>
       <li>Ramazan Bayramı'nın 1. günü ve Kurban Bayramı'nın dört günü oruç tutulmaz. Bu yüzden Zilhicce'de eyyâm-ı bîd yalnızca 14 ve 15. günlerde işaretlidir.</li>
@@ -268,7 +268,7 @@ details ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;g
       <li><b>Recep:</b> Recep ayına özel oruç rivayetleri zayıf veya uydurma kabul edilir (<a href="https://islamansiklopedisi.org.tr/uc-aylar" target="_blank" rel="noopener">TDV İslâm Ansiklopedisi, "Üç Aylar"</a>). Haram aylarda oruca dair rivayet: <a href="https://sunnah.com/abudawud:2428" target="_blank" rel="noopener">Ebû Dâvûd, Savm, no. 2428</a> (zayıf).</li>
       <li><b>Cuma günü:</b> <a href="https://sunnah.com/bukhari:1985" target="_blank" rel="noopener">Buhârî, Savm, no. 1985</a>; <a href="https://sunnah.com/muslim:1144a" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1144</a>: Bir gün önce veya sonra da oruç tutmadıkça hiçbiriniz cuma günü oruç tutmasın.</li>
       <li><b>Bayram ve teşrik günleri:</b> <a href="https://sunnah.com/bukhari:1991" target="_blank" rel="noopener">Buhârî, Savm, no. 1991-1992</a>: Hz. Peygamber iki bayram günü oruç tutmayı yasakladı. <a href="https://sunnah.com/muslim:1141a" target="_blank" rel="noopener">Müslim, Sıyâm, no. 1141</a>: Teşrik günleri yeme içme günleridir.</li>
-      <li><b>Tarihler:</b> <a href="https://vakithesaplama.diyanet.gov.tr/icerik.php?icerik=154" target="_blank" rel="noopener">Diyanet İşleri Başkanlığı, Dini Günler Listesi</a> (2026 ve 2027).</li>
+      <li><b>Tarihler:</b> <a href="https://vakithesaplama.diyanet.gov.tr/icerik.php?icerik=154" target="_blank" rel="noopener">Diyanet İşleri Başkanlığı, Dini Günler Listesi</a> (2026–2035).</li>
       <li><b>Genel bilgi:</b> <a href="https://islamansiklopedisi.org.tr/oruc" target="_blank" rel="noopener">TDV İslâm Ansiklopedisi, "Oruç" maddesi</a>.</li>
     </ul>
   </details>
@@ -341,14 +341,36 @@ const WD=["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar
 const WDK=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
 
 // Diyanet takvimine göre hicri ay başlangıçları: [miladi yıl, ay, gün, hicri ay, hicri yıl]
-const STARTS=[[2026,10,12,5,1448],[2026,11,10,6,1448],[2026,12,10,7,1448],[2027,1,9,8,1448],
- [2027,2,8,9,1448],[2027,3,9,10,1448],[2027,4,8,11,1448],[2027,5,7,12,1448],[2027,6,6,1,1449],
- [2027,7,5,2,1449],[2027,8,3,3,1449],[2027,9,2,4,1449],[2027,10,1,5,1449],[2027,10,31,6,1449],
- [2027,11,29,7,1449],[2027,12,29,8,1449]].map(a=>({n:dn(a[0],a[1],a[2]),m:a[3],y:a[4]}));
+const STARTS=[[2026,10,12,5,1448],[2026,11,10,6,1448],[2026,12,10,7,1448],[2027,1,9,8,1448],[2027,2,8,9,1448],[2027,3,9,10,1448],
+ [2027,4,8,11,1448],[2027,5,7,12,1448],[2027,6,6,1,1449],[2027,7,5,2,1449],[2027,8,3,3,1449],[2027,9,2,4,1449],
+ [2027,10,1,5,1449],[2027,10,31,6,1449],[2027,11,29,7,1449],[2027,12,29,8,1449],[2028,1,28,9,1449],[2028,2,26,10,1449],
+ [2028,3,27,11,1449],[2028,4,26,12,1449],[2028,5,25,1,1450],[2028,6,24,2,1450],[2028,7,23,3,1450],[2028,8,21,4,1450],
+ [2028,9,20,5,1450],[2028,10,19,6,1450],[2028,11,18,7,1450],[2028,12,17,8,1450],[2029,1,16,9,1450],[2029,2,14,10,1450],
+ [2029,3,16,11,1450],[2029,4,15,12,1450],[2029,5,14,1,1451],[2029,6,13,2,1451],[2029,7,13,3,1451],[2029,8,11,4,1451],
+ [2029,9,9,5,1451],[2029,10,9,6,1451],[2029,11,7,7,1451],[2029,12,7,8,1451],[2030,1,5,9,1451],[2030,2,4,10,1451],
+ [2030,3,5,11,1451],[2030,4,4,12,1451],[2030,5,3,1,1452],[2030,6,2,2,1452],[2030,7,2,3,1452],[2030,8,1,4,1452],
+ [2030,8,30,5,1452],[2030,9,28,6,1452],[2030,10,28,7,1452],[2030,11,26,8,1452],[2030,12,26,9,1452],[2031,1,24,10,1452],
+ [2031,2,22,11,1452],[2031,3,24,12,1452],[2031,4,23,1,1453],[2031,5,22,2,1453],[2031,6,21,3,1453],[2031,7,21,4,1453],
+ [2031,8,19,5,1453],[2031,9,18,6,1453],[2031,10,17,7,1453],[2031,11,16,8,1453],[2031,12,15,9,1453],[2032,1,14,10,1453],
+ [2032,2,12,11,1453],[2032,3,13,12,1453],[2032,4,11,1,1454],[2032,5,11,2,1454],[2032,6,9,3,1454],[2032,7,9,4,1454],
+ [2032,8,7,5,1454],[2032,9,6,6,1454],[2032,10,6,7,1454],[2032,11,4,8,1454],[2032,12,4,9,1454],[2033,1,2,10,1454],
+ [2033,2,1,11,1454],[2033,3,2,12,1454],[2033,4,1,1,1455],[2033,4,30,2,1455],[2033,5,30,3,1455],[2033,6,28,4,1455],
+ [2033,7,27,5,1455],[2033,8,26,6,1455],[2033,9,25,7,1455],[2033,10,24,8,1455],[2033,11,23,9,1455],[2033,12,23,10,1455],
+ [2034,1,21,11,1455],[2034,2,20,12,1455],[2034,3,21,1,1456],[2034,4,20,2,1456],[2034,5,19,3,1456],[2034,6,17,4,1456],
+ [2034,7,17,5,1456],[2034,8,15,6,1456],[2034,9,14,7,1456],[2034,10,13,8,1456],[2034,11,12,9,1456],[2034,12,12,10,1456],
+ [2035,1,11,11,1456],[2035,2,9,12,1456],[2035,3,11,1,1457],[2035,4,9,2,1457],[2035,5,9,3,1457],[2035,6,7,4,1457],
+ [2035,7,6,5,1457],[2035,8,5,6,1457],[2035,9,3,7,1457],[2035,10,3,8,1457],[2035,11,1,9,1457],[2035,12,1,10,1457],
+ [2035,12,31,11,1457]].map(a=>({n:dn(a[0],a[1],a[2]),m:a[3],y:a[4]}));
+// Kandiller ay başlarından hesaplanır (Diyanet listeleriyle 2026-2035 arası birebir aynı):
+// Regaib: Recep'in ilk cumasından önceki perşembe; Miraç: 26 Recep; Berat: 14 Şaban; Kadir: 26 Ramazan; Mevlid: 11 Rebiülevvel.
 const KANDIL={};
-[[2026,12,10,"Regaib Kandili"],[2027,1,4,"Miraç Kandili"],[2027,1,22,"Berat Kandili"],[2027,3,5,"Kadir Gecesi"],
- [2027,8,13,"Mevlid Kandili"],[2027,12,2,"Regaib Kandili"],[2027,12,24,"Miraç Kandili"]].forEach(k=>KANDIL[dn(k[0],k[1],k[2])]=k[3]);
-const MIN=dn(2026,11,1), MAX=dn(2027,12,31);
+STARTS.forEach(x=>{
+  if(x.m===7){KANDIL[x.n+(5-new Date(x.n*DAY).getUTCDay()+7)%7-1]="Regaib Kandili"; KANDIL[x.n+25]="Miraç Kandili";}
+  if(x.m===8) KANDIL[x.n+13]="Berat Kandili";
+  if(x.m===9) KANDIL[x.n+25]="Kadir Gecesi";
+  if(x.m===3) KANDIL[x.n+10]="Mevlid Kandili";
+});
+const MIN=dn(2026,11,1), MAX=dn(2035,12,31);
 
 const DESC={
  farz:"Ramazan orucu farzdır (Bakara 2/183-185).",
@@ -528,7 +550,8 @@ function buildReminders(){
   const out=[]; if(!nOn) return out;
   const p=nTime.split(":").map(Number), nowMs=Date.now();
   const at=n=>{const d=toDate(n);return new Date(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),p[0],p[1],0).getTime();};
-  for(let n=Math.max(realToday,MIN);n<=MAX;n++){
+  const lim=Math.min(MAX,realToday+730);
+  for(let n=Math.max(realToday,MIN);n<=lim;n++){
     const i=info(n), t=[];
     i.items.forEach(x=>{
       if(["bid","hafta","zil","muh"].includes(x.k)) t.push(x.t);
@@ -694,6 +717,13 @@ function step(k){let {y,m}=view; m+=k; if(m<1){m=12;y--;} if(m>12){m=1;y++;} vie
 document.getElementById("prev").addEventListener("click",()=>step(-1));
 document.getElementById("next").addEventListener("click",()=>step(1));
 document.getElementById("goToday").addEventListener("click",()=>{sel=today;const d=toDate(today);view={y:d.getUTCFullYear(),m:d.getUTCMonth()+1};renderCal();});
+// Uygulama arka planda kalıp yeni güne geçtiyse sayfayı yeniden yükle
+const dayNow=()=>{const d=new Date();return dn(d.getFullYear(),d.getMonth()+1,d.getDate());};
+window.__orucResume=()=>{if(dayNow()!==realToday) location.reload();};
+document.addEventListener("visibilitychange",()=>{if(!document.hidden) window.__orucResume();});
+window.addEventListener("focus",window.__orucResume);
+window.addEventListener("pageshow",window.__orucResume);
+setInterval(()=>{if(!document.hidden) window.__orucResume();},60000);
 kzInit();
 renderAll();
 showView();
